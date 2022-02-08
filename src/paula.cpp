@@ -29,6 +29,33 @@ void saylHex(int s)       { say(s); say('\n'); }
 void sayl(int s)          { say(s); say('\n'); }
 void sayl(const char * s) { say(s); say('\n'); }
 
+int getLength(const char* s, int max)
+{
+	int i=0;
+	while(s[i] != '\0' && i < max) i++;
+	return i+1;
+}
+void copy(const char* src, char* trg, int srcStart, int trgStart, int length)
+{
+	for (int i=0; i<length; i++)
+	{
+		trg[trgStart + i] = src[srcStart + i];
+	}
+}
+
+int compare(const char* a, const char* b, int max)
+{
+	int i = 0;
+	while (i++ < max) {
+		if (a[i] != b[i]) {
+			if (a[i] < b[i]) return -1;
+			return 1;
+		}
+		if (a[i] == '\0') return 0;
+	}
+	// TODO WARNING/ERROR "compare: max exceed"
+	return -2;
+}
 
 #ifdef OVERLOAD_NEW
 #ifdef WIN32

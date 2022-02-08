@@ -33,12 +33,18 @@
     <ClCompile Include="..\..\src\dummyHeap.cpp">
       <Filter>Source Files\src</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\paulaString.cpp">
+      <Filter>Source Files\src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\paula.hpp">
       <Filter>Header Files\src</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\dummyHeap.hpp">
+      <Filter>Header Files\src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\paulaString.hpp">
       <Filter>Header Files\src</Filter>
     </ClInclude>
   </ItemGroup>

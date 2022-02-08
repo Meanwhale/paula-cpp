@@ -21,6 +21,11 @@ DummyHeap::~DummyHeap()
 #endif
 }
 
+INT32 DummyHeap::getNumAllocs()		{ return numAllocs;		}
+INT32 DummyHeap::getNumDeletes()	{ return numDeletes;	}
+INT32 DummyHeap::getSize()			{ return size;			}
+INT32 DummyHeap::getTop()			{ return top;			}
+
 void* DummyHeap::alloc(INT32 _s)
 {
 	int s = (_s / 4);
@@ -38,6 +43,7 @@ void* DummyHeap::alloc(INT32 _s)
 
 void DummyHeap::free(void * ptr)
 {
+	if (ptr == 0) return;
 #if PAULA_DEBUG
 	sayl("delete");
 	sayl((*((int*)ptr-1)));

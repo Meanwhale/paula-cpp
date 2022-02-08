@@ -7,34 +7,51 @@
 #include <string>
 #endif
 
-int paulaMain()
+
+void allocTest()
 {
+	int top = heap.getTop();
+	int all = heap.getNumAllocs();
+	int del = heap.getNumDeletes();
+
 	int* i = new int(123);
 	int* array = new int[5];
 	char* c = new char('a');
-	say(*i);
-	say(*c);
+	
+	ASSERT(*i == 123, allocErrorMsg);
+	ASSERT(heap.getTop() == top + 10, allocErrorMsg);
+	ASSERT(heap.getNumAllocs() == all + 3, allocErrorMsg);
+	ASSERT(heap.getNumDeletes() == del + 0, allocErrorMsg);
+
 	delete i;
 	delete c;
 	delete[] array;
-#ifdef EXTRA_LOAD
-	std::string s("a");
-	say(s.c_str());
-#endif
-	sayl("");
-	heap.info();
-	return 0;
+	
+	ASSERT(heap.getNumAllocs() == all + 3, allocErrorMsg);
+	ASSERT(heap.getNumDeletes() == del + 3, allocErrorMsg);
 }
+
+void stringTest()
+{
+	ASSERT(compare("abc", "abc") == 0, "");
+	ASSERT(compare("abc", "bc") == -1, "");
+	ASSERT(compare("bc", "abc") == 1, "");
+	
+	PString s("abc");
+
+	ASSERT(compare(s.get(), "abc") == 0, "");
+}
+
 #ifdef PAULA_DEBUG
 void stdRead()
 {
 	// read until EOF (Ctrl-Z)
-	constexpr int BUFFERSIZE = 10;
+	constexpr int BUFFERSIZE = 100;
     char buffer[BUFFERSIZE];
-    printf("Enter a message: \n");
+    sayl("Enter a message:");
     while(fgets(buffer, BUFFERSIZE , stdin) != NULL)
     {
-        printf("%s\n", buffer);
+        sayl(buffer);
     }
 }
 void sayNumberTest()
@@ -50,3 +67,17 @@ void sayNumberTest()
 	say(1);
 }
 #endif
+
+int paulaMain()
+{
+	stringTest();
+
+	allocTest();
+#ifdef EXTRA_LOAD
+	std::string s("a");
+	say(s.c_str());
+#endif
+	sayl("");
+	heap.info();
+	return 0;
+}

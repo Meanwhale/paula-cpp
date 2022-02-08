@@ -9,29 +9,36 @@
 typedef int INT32;
 
 #include "dummyHeap.hpp"
+#include "paulaString.hpp"
 
 #include <stddef.h>
 
 int paulaMain();
 
+#ifdef PAULA_DEBUG
 #ifdef WIN32
 #define HALT __debugbreak() 
 #define ASSERT(b,msg) { if (!(b)) {sayl(msg); HALT; }; }
 #else
 #define ASSERT(b,msg) { if (!(b)) {sayl(msg); exit(-1); }; }
 #endif
-
+#else // !PAULA_DEBUG
+#define ASSERT(b,msg)
+#endif
 constexpr const char * allocErrorMsg = "alloc error";
 
 void say(char);
 void say(const char*);
-void say(int);
-void sayHex(int);
+void say(INT32);
+void sayHex(INT32);
 void sayl(char);
 void sayl(const char*);
 void sayl(int);
 void saylHex(int);
 
+int getLength(const char*, int max = 100000);
+void copy(const char* src, char* trg, int srcStart, int dstStart, int length);
+int compare(const char* a,const char* b, int max = 1000);
 
 extern DummyHeap heap;
 

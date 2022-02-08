@@ -14,6 +14,11 @@ public:
 	void free(void*);
 	void reset();
 	void info();
+	
+	INT32 getNumAllocs();
+	INT32 getNumDeletes();
+	INT32 getSize();
+	INT32 getTop();
 
 private:
 	INT32 size, top;
@@ -23,4 +28,3 @@ private:
 
 
 #endif
-#pragma once
